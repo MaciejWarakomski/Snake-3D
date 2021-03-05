@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float moveTimePeriod = 1f;
     [SerializeField] GameObject snakeBody;
     [SerializeField] GameObject snakeTail;
     List<GameObject> snakeBodyList = new List<GameObject>();
     Vector3 lastSnakePosition;
     Quaternion lastSnakeRotation;
-    float moveTimer = 0f;
+    float moveTimePeriod = 0.5f;
+    float moveTimer;
     int snakeSize;
 
     FruitSpawner fruitSpawnerScript;
@@ -19,9 +19,24 @@ public class Movement : MonoBehaviour
     {
         fruitSpawnerScript = FindObjectOfType<FruitSpawner>();
         lastSnakePosition = transform.position;
+        moveTimer = 0f;
+        switch (PlayerPrefsController.GetDifficulty())
+        {
+            case 0:
+                moveTimePeriod = 0.5f;
+                break;
+            case 1:
+                moveTimePeriod = 0.3f;
+                break;
+            case 2:
+                moveTimePeriod = 0.1f;
+                break;
+            default:
+                break;
+        }
     }
 
-    void Update()
+    private void Update()
     {
         ProcessDirection();
         ProcessMove();

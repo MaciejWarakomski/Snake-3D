@@ -11,7 +11,7 @@ public class FruitSpawner : MonoBehaviour
     [SerializeField] List<GameObject> fruits;
     RaycastHit hitInfo;
 
-    void Start()
+    private void Awake()
     {
         StartCoroutine(StartSpawningFruit());
     }
