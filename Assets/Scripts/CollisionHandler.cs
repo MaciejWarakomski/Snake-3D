@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-    SnakeSizeControl snakeSizeControlScript;
+    Movement movementScript;
     FruitSpawner fruitSpawnerScript;
 
     private void Awake()
     {
-        snakeSizeControlScript = GetComponent<SnakeSizeControl>();
+        movementScript = GetComponent<Movement>();
         fruitSpawnerScript = FindObjectOfType<FruitSpawner>();
     }
 
@@ -19,12 +19,12 @@ public class CollisionHandler : MonoBehaviour
         {
             case "Fruit":
                 Destroy(other.gameObject);
-                snakeSizeControlScript.AddSnakeSize();
+                movementScript.AddSnakeSize();
                 StartCoroutine(fruitSpawnerScript.StartSpawningFruit());
                 break;
             case "Spikes":
                 Destroy(other.gameObject);
-                snakeSizeControlScript.RemoveSnakeSize();
+                movementScript.RemoveSnakeSize();
                 break;
             case "Fence":
                 FindObjectOfType<SceneHolder>().ReloadScene();

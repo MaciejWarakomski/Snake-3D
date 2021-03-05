@@ -15,19 +15,19 @@ public class SnakeSizeControl : MonoBehaviour
         snakeSize = 0;
     }
 
-    public void SpawnSnakeBody()
-    {
-        if(snakeSize > 1)
-        {
-            var snakeBodyClone = Instantiate(snakeBody, movementScript.GetSnakePosition(), transform.rotation);
-            snakeBodyClone.transform.parent = gameObject.transform;
-        }
-        else if(snakeSize == 1)
-        {
-            var snakeTailClone = Instantiate(snakeTail, movementScript.GetSnakePosition(), transform.rotation);
-            snakeTailClone.transform.parent = gameObject.transform;
-        }
-    }
+    //public void SpawnSnakeBody()
+    //{
+    //    if(snakeSize > 1)
+    //    {
+    //        var snakeBodyClone = Instantiate(snakeBody, movementScript.GetSnakePosition(), transform.rotation);
+    //        snakeBodyClone.transform.parent = gameObject.transform;
+    //    }
+    //    else if(snakeSize == 1)
+    //    {
+    //        var snakeTailClone = Instantiate(snakeTail, movementScript.GetSnakePosition(), transform.rotation);
+    //        snakeTailClone.transform.parent = gameObject.transform;
+    //    }
+    //}
 
     public void AddSnakeSize()
     {

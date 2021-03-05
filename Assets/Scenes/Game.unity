@@ -484,6 +484,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6582492887417764616, guid: cf0b02d51c732f64ab99905b53a71dd0,
+        type: 3}
+      propertyPath: snakeTail
+      value: 
+      objectReference: {fileID: 1169571509000354, guid: ef1e561a128c76e41850e8f2c66d9a41,
+        type: 3}
+    - target: {fileID: 6582492887417764616, guid: cf0b02d51c732f64ab99905b53a71dd0,
+        type: 3}
+      propertyPath: moveTimePeriod
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6582492887417764617, guid: cf0b02d51c732f64ab99905b53a71dd0,
         type: 3}
       propertyPath: m_RootOrder

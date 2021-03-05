@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6582492887417764616}
   - component: {fileID: 8246254834565531920}
   - component: {fileID: 2998985802938988546}
-  - component: {fileID: 6042622978590336978}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Player
@@ -48,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTimePeriod: 0.5
-  startingPosition: {x: 0, y: 0}
+  startingPosition: {x: 0, y: 0, z: 0}
   snakeBody: {fileID: 1568069664168794, guid: bcddf0fb8f960fe4dad489139e89c795, type: 3}
 --- !u!114 &8246254834565531920
 MonoBehaviour:
@@ -78,20 +77,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6042622978590336978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6582492887417764622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d635f35953b1bc94faf660dcc28bcad3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snakeBody: {fileID: 1568069664168794, guid: bcddf0fb8f960fe4dad489139e89c795, type: 3}
-  snakeTail: {fileID: 1169571509000354, guid: ef1e561a128c76e41850e8f2c66d9a41, type: 3}
 --- !u!1 &6582578277771274120
 GameObject:
   m_ObjectHideFlags: 0
