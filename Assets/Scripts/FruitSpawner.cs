@@ -45,7 +45,8 @@ public class FruitSpawner : MonoBehaviour
             return;
         }
 
-        Instantiate(fruits[Random.Range(0, fruits.Count)],
+        Instantiate(
+            fruits[Random.Range(0, fruits.Count)],
             new Vector3(fruitPosX, 0f, fruitPosY),
             Quaternion.identity);
     }

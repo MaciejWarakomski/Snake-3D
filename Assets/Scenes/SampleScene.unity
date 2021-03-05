@@ -390,6 +390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284eaf2655cc0b14aa35e147119fe133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxXPos: 11
+  maxYPos: 8
+  maxOfSpikes: 5
+  spawnDelay: 5
+  spikes: {fileID: 1225082898630678, guid: 3c9029ad676d2d141b811db5e946720c, type: 3}
 --- !u!1001 &2965940807626540568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -456,6 +461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965940808134079917, guid: cf0b02d51c732f64ab99905b53a71dd0,
+        type: 3}
+      propertyPath: moveTimePeriod
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0b02d51c732f64ab99905b53a71dd0, type: 3}
