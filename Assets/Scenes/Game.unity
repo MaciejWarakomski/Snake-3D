@@ -493,7 +493,7 @@ PrefabInstance:
     - target: {fileID: 6582492887417764616, guid: cf0b02d51c732f64ab99905b53a71dd0,
         type: 3}
       propertyPath: moveTimePeriod
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6582492887417764617, guid: cf0b02d51c732f64ab99905b53a71dd0,
         type: 3}

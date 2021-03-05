@@ -5,11 +5,11 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float moveTimePeriod = 1f;
-    [SerializeField] Vector3 startingPosition = new Vector3(0, 0, 0);
     [SerializeField] GameObject snakeBody;
     [SerializeField] GameObject snakeTail;
-    List<Vector3> snakePositionsList = new List<Vector3>();
-    Vector3 snakePosition;
+    List<GameObject> snakeBodyList = new List<GameObject>();
+    Vector3 lastSnakePosition;
+    Quaternion lastSnakeRotation;
     float moveTimer = 0f;
     int snakeSize;
 
@@ -17,33 +17,35 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        snakePosition = startingPosition;
-        transform.position = new Vector3(snakePosition.x, 0, snakePosition.y);
         fruitSpawnerScript = FindObjectOfType<FruitSpawner>();
+        lastSnakePosition = transform.position;
     }
 
     void Update()
     {
         ProcessDirection();
         ProcessMove();
-
     }
 
     private void ProcessDirection()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        Vector3 positionsDiff = lastSnakePosition - transform.position;
+        var distance = positionsDiff.magnitude;
+        var direction = positionsDiff / distance;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && (direction.z != 1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) && (direction.x != 1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && (direction.z != -1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && (direction.x != -1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 270f, 0f);
         }
@@ -55,22 +57,29 @@ public class Movement : MonoBehaviour
         if (moveTimer >= moveTimePeriod)
         {
             moveTimer = 0f;
-            snakePosition = transform.position;
 
-            snakePositionsList.Insert(0, snakePosition);
+            lastSnakePosition = transform.position;
+            lastSnakeRotation = transform.rotation;
 
             transform.Translate(Vector3.forward);
 
-            while (snakePositionsList.Count >= snakeSize + 1)
-            {
-                snakePositionsList.RemoveAt(snakePositionsList.Count - 1);
-            }
+            var bodyClone = Instantiate(snakeBody, lastSnakePosition, lastSnakeRotation);
+            snakeBodyList.Insert(0, bodyClone);
 
-            for (int i = 0; i < snakePositionsList.Count; i++)
+            while (snakeBodyList.Count >= snakeSize + 1)
             {
-                Vector3 bodyPosition = snakePositionsList[i];
-                var bodyClone = Instantiate(snakeBody, bodyPosition, Quaternion.identity);
-                Destroy(bodyClone, moveTimePeriod);
+                Destroy(snakeBodyList[snakeBodyList.Count - 1]);
+                snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
+            }
+            if (snakeBodyList.Count > 0)
+            {
+                GameObject lastBodySnake = snakeBodyList[snakeBodyList.Count - 1];
+                Vector3 lastBodyPosition = lastBodySnake.transform.position;
+                Quaternion lastBodyRotation = lastBodySnake.transform.rotation;
+                Destroy(snakeBodyList[snakeBodyList.Count - 1]);
+                snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
+                var tailClone = Instantiate(snakeTail, lastBodyPosition, lastBodyRotation);
+                snakeBodyList.Insert(snakeBodyList.Count, tailClone);
             }
         }
     }
