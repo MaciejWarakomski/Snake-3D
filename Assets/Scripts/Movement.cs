@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] GameObject snakeBody;
-    [SerializeField] GameObject snakeTail;
-    List<GameObject> snakeBodyList = new List<GameObject>();
     Vector3 lastSnakePosition;
     Quaternion lastSnakeRotation;
-    float moveTimePeriod = 0.5f;
+    float moveTimePeriod;
     float moveTimer;
     int snakeSize;
 
+    [SerializeField] GameObject snakeBody;
+    [SerializeField] GameObject snakeTail;
+
+    List<GameObject> snakeBodyList = new List<GameObject>();
     FruitSpawner fruitSpawnerScript;
 
     private void Awake()
@@ -20,6 +21,11 @@ public class Movement : MonoBehaviour
         fruitSpawnerScript = FindObjectOfType<FruitSpawner>();
         lastSnakePosition = transform.position;
         moveTimer = 0f;
+        GetDifficulty();
+    }
+
+    private void GetDifficulty()
+    {
         switch (PlayerPrefsController.GetDifficulty())
         {
             case 0:
@@ -77,25 +83,29 @@ public class Movement : MonoBehaviour
             lastSnakeRotation = transform.rotation;
 
             transform.Translate(Vector3.forward);
+            ProcessTail();
+        }
+    }
 
-            var bodyClone = Instantiate(snakeBody, lastSnakePosition, lastSnakeRotation);
-            snakeBodyList.Insert(0, bodyClone);
+    private void ProcessTail()
+    {
+        var bodyClone = Instantiate(snakeBody, lastSnakePosition, lastSnakeRotation);
 
-            while (snakeBodyList.Count >= snakeSize + 1)
-            {
-                Destroy(snakeBodyList[snakeBodyList.Count - 1]);
-                snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
-            }
-            if (snakeBodyList.Count > 0)
-            {
-                GameObject lastBodySnake = snakeBodyList[snakeBodyList.Count - 1];
-                Vector3 lastBodyPosition = lastBodySnake.transform.position;
-                Quaternion lastBodyRotation = lastBodySnake.transform.rotation;
-                Destroy(snakeBodyList[snakeBodyList.Count - 1]);
-                snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
-                var tailClone = Instantiate(snakeTail, lastBodyPosition, lastBodyRotation);
-                snakeBodyList.Insert(snakeBodyList.Count, tailClone);
-            }
+        snakeBodyList.Insert(0, bodyClone);
+        while (snakeBodyList.Count >= snakeSize + 1)
+        {
+            Destroy(snakeBodyList[snakeBodyList.Count - 1]);
+            snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
+        }
+        if (snakeBodyList.Count > 0)
+        {
+            GameObject lastBodySnake = snakeBodyList[snakeBodyList.Count - 1];
+            Vector3 lastBodyPosition = lastBodySnake.transform.position;
+            Quaternion lastBodyRotation = lastBodySnake.transform.rotation;
+            Destroy(snakeBodyList[snakeBodyList.Count - 1]);
+            snakeBodyList.RemoveAt(snakeBodyList.Count - 1);
+            var tailClone = Instantiate(snakeTail, lastBodyPosition, lastBodyRotation);
+            snakeBodyList.Insert(snakeBodyList.Count, tailClone);
         }
     }
 
@@ -110,15 +120,7 @@ public class Movement : MonoBehaviour
                 break;
             case "Spikes":
                 Destroy(other.gameObject);
-                if (snakeSize > 0)
-                {
-                    snakeSize--;
-                    FindObjectOfType<SpikeSpawner>().RemoveSpikes();
-                }
-                else
-                {
-                    ProcessDeath();
-                }
+                DecreaseSnakeSize();
                 break;
             case "Fence":
                 ProcessDeath();
@@ -128,6 +130,19 @@ public class Movement : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void DecreaseSnakeSize()
+    {
+        if (snakeSize > 0)
+        {
+            snakeSize--;
+            FindObjectOfType<SpikeSpawner>().RemoveSpikes();
+        }
+        else
+        {
+            ProcessDeath();
         }
     }
 

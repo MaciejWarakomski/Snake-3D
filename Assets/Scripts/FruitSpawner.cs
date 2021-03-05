@@ -8,8 +8,10 @@ public class FruitSpawner : MonoBehaviour
     [SerializeField] int maxYPos = 8;
     [SerializeField] float minSpawnDelay = 1f;
     [SerializeField] float maxSpawnDelay = 2f;
-    [SerializeField] List<GameObject> fruits;
     RaycastHit hitInfo;
+
+    [SerializeField] List<GameObject> fruits;
+    
 
     private void Awake()
     {

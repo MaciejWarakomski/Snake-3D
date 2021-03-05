@@ -6,16 +6,22 @@ public class SpikeSpawner : MonoBehaviour
 {
     [SerializeField] int maxXPos = 11;
     [SerializeField] int maxYPos = 8;
-    [SerializeField] GameObject spikes;
     RaycastHit hitInfo;
     float spawnDelay;
     int spawnedSpikes;
     int maxOfSpikes;
 
+    [SerializeField] GameObject spikes;
+
     private void Awake()
     {
         spawnedSpikes = 0;
         StartCoroutine(StartSpawningSpikes());
+        GetDifficulty();
+    }
+
+    private void GetDifficulty()
+    {
         switch (PlayerPrefsController.GetDifficulty())
         {
             case 0:

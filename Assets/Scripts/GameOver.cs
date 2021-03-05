@@ -5,9 +5,10 @@ using TMPro;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI scoreText;
     float score;
 
+    [SerializeField] TextMeshProUGUI scoreText;
+    
     private void Awake()
     {
         score = FindObjectOfType<ScoreHandler>().GetScore() * 
