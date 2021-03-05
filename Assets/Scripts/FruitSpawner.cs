@@ -33,11 +33,10 @@ public class FruitSpawner : MonoBehaviour
             fruitPosY = Random.Range(-maxYPos, maxYPos + 1);
 
             Physics.Raycast(
-                new Vector3(fruitPosX, 2f, fruitPosY),
+                new Vector3(fruitPosX, 5f, fruitPosY),
                 Vector3.down,
                 out hitInfo);
-
-        } while (hitInfo.collider.transform.tag.Equals("Background"));
+        } while (!hitInfo.collider.transform.tag.Equals("Background"));
 
         if(fruits.Count == 0)
         {

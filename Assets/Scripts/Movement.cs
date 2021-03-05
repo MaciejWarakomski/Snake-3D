@@ -5,15 +5,18 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float moveTimePeriod = 1f;
-    [SerializeField] Vector2Int startingPosition = new Vector2Int(0, 0);
-    Vector2Int snakePos;
-    Quaternion snakeRotation;
+    [SerializeField] Vector3 startingPosition = new Vector3(0, 0, 0);
+    [SerializeField] GameObject snakeBody;
+    Vector3 snakePosition;
     float moveTimer = 0f;
+
+    SnakeSizeControl snakeSizeControlScript;
 
     private void Awake()
     {
-        snakePos = startingPosition;
-        transform.position = new Vector3(snakePos.x, 0, snakePos.y);
+        snakePosition = startingPosition;
+        transform.position = new Vector3(snakePosition.x, 0, snakePosition.y);
+        snakeSizeControlScript = GetComponent<SnakeSizeControl>();
     }
 
     void Update()
@@ -48,8 +51,15 @@ public class Movement : MonoBehaviour
         moveTimer += Time.deltaTime;
         if (moveTimer >= moveTimePeriod)
         {
-            transform.Translate(Vector3.forward);
             moveTimer = 0f;
+            snakePosition = transform.position;
+            transform.Translate(Vector3.forward);
+            snakeSizeControlScript.SpawnSnakeBody();
         }
+    }
+
+    public Vector3 GetSnakePosition()
+    {
+        return snakePosition;
     }
 }

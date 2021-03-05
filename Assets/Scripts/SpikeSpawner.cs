@@ -10,7 +10,6 @@ public class SpikeSpawner : MonoBehaviour
     [SerializeField] float spawnDelay = 5f;
     [SerializeField] GameObject spikes;
     RaycastHit hitInfo;
-    float spawnTimer;
     int spawnedSpikes;
 
     // Start is called before the first frame update
@@ -41,11 +40,11 @@ public class SpikeSpawner : MonoBehaviour
             spikesPosY = Random.Range(-maxYPos, maxYPos + 1);
 
             Physics.Raycast(
-                new Vector3(spikesPosX, 2f, spikesPosY),
+                new Vector3(spikesPosX, 5f, spikesPosY),
                 Vector3.down,
                 out hitInfo);
 
-        } while (hitInfo.collider.transform.tag.Equals("Background"));
+        } while (!hitInfo.collider.transform.tag.Equals("Background"));
 
         if (!spikes)
         {
