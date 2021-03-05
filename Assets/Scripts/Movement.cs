@@ -13,10 +13,13 @@ public class Movement : MonoBehaviour
     float moveTimer = 0f;
     int snakeSize;
 
+    FruitSpawner fruitSpawnerScript;
+
     private void Awake()
     {
         snakePosition = startingPosition;
         transform.position = new Vector3(snakePosition.x, 0, snakePosition.y);
+        fruitSpawnerScript = FindObjectOfType<FruitSpawner>();
     }
 
     void Update()
@@ -28,57 +31,21 @@ public class Movement : MonoBehaviour
 
     private void ProcessDirection()
     {
-        if (snakePositionsList.Count > 0)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Vector3 positionDiff = transform.position - snakePositionsList[0];
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (positionDiff.z >= 0 || positionDiff.x != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if (positionDiff.x >= 0 || positionDiff.z != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if (positionDiff.z <= 0 || positionDiff.x != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if (positionDiff.x <= 0 || positionDiff.z != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 270f, 0f);
-                }
-            }
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        else
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                transform.rotation = Quaternion.Euler(0f, 270f, 0f);
-            }
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.rotation = Quaternion.Euler(0f, 270f, 0f);
         }
     }
 
@@ -108,20 +75,34 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public void AddSnakeSize()
+    private void OnTriggerEnter(Collider other)
     {
-        snakeSize++;
-    }
-
-    public void RemoveSnakeSize()
-    {
-        if (snakeSize > 0)
+        switch (other.gameObject.tag)
         {
-            snakeSize--;
-        }
-        else
-        {
-            FindObjectOfType<SceneHolder>().ReloadScene();
+            case "Fruit":
+                Destroy(other.gameObject);
+                snakeSize++;
+                StartCoroutine(fruitSpawnerScript.StartSpawningFruit());
+                break;
+            case "Spikes":
+                Destroy(other.gameObject);
+                if (snakeSize > 0)
+                {
+                    snakeSize--;
+                }
+                else
+                {
+                    FindObjectOfType<SceneHolder>().ReloadScene();
+                }
+                break;
+            case "Fence":
+                FindObjectOfType<SceneHolder>().ReloadScene();
+                break;
+            case "Body":
+                FindObjectOfType<SceneHolder>().ReloadScene();
+                break;
+            default:
+                break;
         }
     }
 }

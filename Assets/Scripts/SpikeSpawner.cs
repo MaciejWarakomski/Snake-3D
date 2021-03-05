@@ -12,7 +12,6 @@ public class SpikeSpawner : MonoBehaviour
     RaycastHit hitInfo;
     int spawnedSpikes;
 
-    // Start is called before the first frame update
     void Start()
     {
         spawnedSpikes = 0;
