@@ -6,7 +6,7 @@ public class SpikeSpawner : MonoBehaviour
 {
     [SerializeField] int maxXPos = 11;
     [SerializeField] int maxYPos = 8;
-    [SerializeField] int maxOfSpikes = 5;
+    [SerializeField] int maxOfSpikes = 10;
     [SerializeField] float spawnDelay = 5f;
     [SerializeField] GameObject spikes;
     RaycastHit hitInfo;
@@ -23,9 +23,12 @@ public class SpikeSpawner : MonoBehaviour
         do
         {
             yield return new WaitForSeconds(spawnDelay);
-            SpawnSpikes();
-            spawnedSpikes++;
-        } while (spawnedSpikes <= maxOfSpikes);
+            if (spawnedSpikes < maxOfSpikes)
+            {
+                SpawnSpikes();
+                spawnedSpikes++;
+            }
+        } while (true);
         
     }
 
@@ -52,5 +55,10 @@ public class SpikeSpawner : MonoBehaviour
         }
 
         Instantiate(spikes, new Vector3(spikesPosX, 0f, spikesPosY), Quaternion.identity);
+    }
+
+    public void RemoveSpikes()
+    {
+        spawnedSpikes--;
     }
 }

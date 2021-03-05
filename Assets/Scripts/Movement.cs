@@ -98,6 +98,7 @@ public class Movement : MonoBehaviour
                 if (snakeSize > 0)
                 {
                     snakeSize--;
+                    FindObjectOfType<SpikeSpawner>().RemoveSpikes();
                 }
                 else
                 {
