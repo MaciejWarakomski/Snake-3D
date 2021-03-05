@@ -117,17 +117,23 @@ public class Movement : MonoBehaviour
                 }
                 else
                 {
-                    FindObjectOfType<SceneHolder>().ReloadScene();
+                    ProcessDeath();
                 }
                 break;
             case "Fence":
-                FindObjectOfType<SceneHolder>().ReloadScene();
+                ProcessDeath();
                 break;
             case "Body":
-                FindObjectOfType<SceneHolder>().ReloadScene();
+                ProcessDeath();
                 break;
             default:
                 break;
         }
+    }
+
+    private void ProcessDeath()
+    {
+        FindObjectOfType<ScoreHandler>().SetScore(snakeBodyList.Count);
+        FindObjectOfType<SceneHolder>().LoadNextScene();
     }
 }
