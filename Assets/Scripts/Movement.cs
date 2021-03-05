@@ -28,58 +28,54 @@ public class Movement : MonoBehaviour
 
     private void ProcessDirection()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (snakePositionsList.Count > 0)
         {
-            if (snakePositionsList.Count > 0)
+            Vector3 positionDiff = transform.position - snakePositionsList[0];
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if ((transform.position - snakePositionsList[0]).z >= 0)
+                if (positionDiff.z >= 0 || positionDiff.x != 0)
                 {
                     transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (snakePositionsList.Count > 0)
-            {
-                if ((transform.position - snakePositionsList[0]).x >= 0)
+                if (positionDiff.x >= 0 || positionDiff.z != 0)
                 {
                     transform.rotation = Quaternion.Euler(0f, 90f, 0f);
                 }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (snakePositionsList.Count > 0)
-            {
-                if ((transform.position - snakePositionsList[0]).z <= 0)
+                if (positionDiff.z <= 0 || positionDiff.x != 0)
                 {
                     transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (snakePositionsList.Count > 0)
-            {
-                if ((transform.position - snakePositionsList[0]).x <= 0)
+                if (positionDiff.x <= 0 || positionDiff.z != 0)
                 {
                     transform.rotation = Quaternion.Euler(0f, 270f, 0f);
                 }
             }
-            else
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 transform.rotation = Quaternion.Euler(0f, 270f, 0f);
             }
