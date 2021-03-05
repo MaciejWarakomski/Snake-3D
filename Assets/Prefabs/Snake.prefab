@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6c70c1c009c746998c548d0571f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTimePeriod: 0.5
-  startingPosition: {x: 0, y: 0, z: 0}
+  moveTimePeriod: 0.1
   snakeBody: {fileID: 1568069664168794, guid: bcddf0fb8f960fe4dad489139e89c795, type: 3}
+  snakeTail: {fileID: 1169571509000354, guid: ef1e561a128c76e41850e8f2c66d9a41, type: 3}
 --- !u!114 &8246254834565531920
 MonoBehaviour:
   m_ObjectHideFlags: 0

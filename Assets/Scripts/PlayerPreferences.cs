@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeBody : MonoBehaviour
+public class PlayerPreferences : MonoBehaviour
 {
-    [SerializeField] GameObject snakeTail;
-
     // Start is called before the first frame update
     void Start()
     {
