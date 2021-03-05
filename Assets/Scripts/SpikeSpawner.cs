@@ -27,7 +27,7 @@ public class SpikeSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnDelay);
             SpawnSpikes();
             spawnedSpikes++;
-        } while (spawnedSpikes >= maxOfSpikes);
+        } while (spawnedSpikes <= maxOfSpikes);
         
     }
 
