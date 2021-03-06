@@ -66,19 +66,22 @@ public class SnakeControl : MonoBehaviour
         var distance = positionsDiff.magnitude;
         var direction = positionsDiff / distance;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && (direction.z != 1 || snakeBodyList.Count == 0))
+        float xThrow = Input.GetAxis("Horizontal");
+        float yThrow = Input.GetAxis("Vertical");
+
+        if (yThrow > 0 && (direction.z != 1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && (direction.x != 1 || snakeBodyList.Count == 0))
+        if (xThrow > 0 && (direction.x != 1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && (direction.z != -1 || snakeBodyList.Count == 0))
+        if (yThrow < 0 && (direction.z != -1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && (direction.x != -1 || snakeBodyList.Count == 0))
+        if (xThrow < 0 && (direction.x != -1 || snakeBodyList.Count == 0))
         {
             transform.rotation = Quaternion.Euler(0f, 270f, 0f);
         }
