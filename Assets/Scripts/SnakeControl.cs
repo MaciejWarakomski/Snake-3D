@@ -27,21 +27,21 @@ public class SnakeControl : MonoBehaviour
         fruitSpawnerScript = FindObjectOfType<FruitsSpawner>();
         lastSnakePosition = transform.position;
         moveTimer = 0f;
-        GetDifficulty();
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = PlayerPrefsController.GetEffectsVolume();
+        GetPlayerPrefs();
         isAlive = true;
     }
 
-    private void GetDifficulty()
+    private void GetPlayerPrefs()
     {
+        audioSource.volume = PlayerPrefsController.GetEffectsVolume();
         switch (PlayerPrefsController.GetDifficulty())
         {
             case 0:
-                moveTimePeriod = 0.5f;
+                moveTimePeriod = 0.3f;
                 break;
             case 1:
-                moveTimePeriod = 0.3f;
+                moveTimePeriod = 0.2f;
                 break;
             case 2:
                 moveTimePeriod = 0.1f;

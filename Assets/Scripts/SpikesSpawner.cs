@@ -15,26 +15,26 @@ public class SpikesSpawner : MonoBehaviour
 
     private void Awake()
     {
-        GetDifficulty();
+        GetPlayerPrefs();
         spawnedSpikes = 0;
         StartCoroutine(StartSpawningSpikes());
     }
 
-    private void GetDifficulty()
+    private void GetPlayerPrefs()
     {
         switch (PlayerPrefsController.GetDifficulty())
         {
             case 0:
-                maxOfSpikes = 10;
-                spawnDelay = 6f;
+                maxOfSpikes = 20;
+                spawnDelay = 5f;
                 break;
             case 1:
-                maxOfSpikes = 20;
+                maxOfSpikes = 30;
                 spawnDelay = 4f;
                 break;
             case 2:
-                maxOfSpikes = 30;
-                spawnDelay = 2f;
+                maxOfSpikes = 40;
+                spawnDelay = 3f;
                 break;
             default:
                 break;

@@ -12,7 +12,7 @@ public class OptionsController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI masterVolumeText;
     [SerializeField] Slider masterVolumeSlider;
-    float defaultVolume = 0.4f;
+    float defaultVolume = 0.2f;
 
     [SerializeField] TextMeshProUGUI soundEffectsText;
     [SerializeField] Slider soundEffectsSlider;
@@ -22,6 +22,7 @@ public class OptionsController : MonoBehaviour
 
     private void Awake()
     {
+        SetDefaultSettings();
         difficultySlider.value = PlayerPrefsController.GetDifficulty();
         masterVolumeSlider.value = PlayerPrefsController.GetMasterVolume();
         soundEffectsSlider.value = PlayerPrefsController.GetEffectsVolume();
