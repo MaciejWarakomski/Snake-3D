@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
+        Cursor.visible = false;
     }
 
     private void Singleton()

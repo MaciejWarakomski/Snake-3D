@@ -22,7 +22,6 @@ public class OptionsController : MonoBehaviour
 
     private void Awake()
     {
-        SetDefaultSettings();
         difficultySlider.value = PlayerPrefsController.GetDifficulty();
         masterVolumeSlider.value = PlayerPrefsController.GetMasterVolume();
         soundEffectsSlider.value = PlayerPrefsController.GetEffectsVolume();
